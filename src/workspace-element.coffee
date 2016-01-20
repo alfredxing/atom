@@ -9,7 +9,7 @@ class WorkspaceElement extends HTMLElement
   globalTextEditorStyleSheet: null
 
   attachedCallback: ->
-    @focus()
+    requestAnimationFrame(@focus.bind(@))
 
   detachedCallback: ->
     @subscriptions.dispose()

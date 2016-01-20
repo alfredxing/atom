@@ -113,10 +113,10 @@ class TextEditorComponent
       @disposables.add @themes.onDidChangeActiveThemes @onAllThemesLoaded
     @disposables.add scrollbarStyle.onDidChangePreferredScrollbarStyle @refreshScrollbars
 
-    @disposables.add @views.pollDocument(@pollDOM)
+    @disposables.add @views.pollDocument(=> requestAnimationFrame(@pollDOM))
 
     @updateSync()
-    @checkForVisibilityChange()
+    requestAnimationFrame(@checkForVisibilityChange.bind(@))
     @initialized = true
 
   destroy: ->
@@ -610,8 +610,8 @@ class TextEditorComponent
           @handleStylingChange()
 
   onAllThemesLoaded: =>
-    @refreshScrollbars()
-    @handleStylingChange()
+    requestAnimationFrame(@refreshScrollbars.bind(@))
+    requestAnimationFrame(@handleStylingChange.bind(@))
 
   handleStylingChange: =>
     @sampleFontStyling()

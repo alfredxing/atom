@@ -69,7 +69,7 @@ class TextEditorElement extends HTMLElement
     @assert(@model.isAlive(), "Attaching a view for a destroyed editor")
     @mountComponent() unless @component?
     @listenForComponentEvents()
-    @component.checkForVisibilityChange()
+    requestAnimationFrame(@component.checkForVisibilityChange.bind(@component))
     if this is document.activeElement
       @focused()
     @emitter.emit("did-attach")
